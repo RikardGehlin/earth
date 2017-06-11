@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import React3 from "react-three-renderer";
-import { Vector3, Euler, Geometry, DoubleSide } from "three";
+import { Color, Vector3 } from "three";
 
 const THREE = require("three");
 const OrbitControls = require("three-orbit-controls")(THREE);
@@ -12,15 +12,13 @@ import Cell from "./Cell";
 /**
  * The main class to display the map. This contains only view code!
  */
-export default class Game extends Component {
+export default class Earth extends Component {
   static propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     cameraPosition: PropTypes.instanceOf(Vector3).isRequired,
     lookAt: PropTypes.instanceOf(Vector3).isRequired,
-    geometry: PropTypes.instanceOf(Geometry),
-    cellPosition: PropTypes.instanceOf(Vector3),
-    cellRotation: PropTypes.instanceOf(Euler)
+    cells: PropTypes.array.isRequired
   };
 
   componentDidMount() {
@@ -34,15 +32,7 @@ export default class Game extends Component {
   }
 
   render() {
-    const {
-      width,
-      height,
-      cameraPosition,
-      geometry,
-      lookAt,
-      cellPosition,
-      cellRotation
-    } = this.props;
+    const { width, height, cameraPosition, lookAt, cells } = this.props;
 
     const aspectratio = this.props.width / this.props.height;
 
@@ -60,18 +50,9 @@ export default class Game extends Component {
         <resources />
         <scene>
           <perspectiveCamera ref="camera" name="camera" {...cameraprops} />
-          <ambientLight color={0xdddddd} />
-          <Cell
-            position={cellPosition}
-            rotation={cellRotation}
-            color={0x00aa00}
-          />
-          <Cell
-            position={cellPosition}
-            rotation={cellRotation}
-            color={0x000000}
-            wireframe
-          />
+          {cells.map(function(element) {
+            return <Cell {...element} />;
+          })}
           <axisHelper size={5} />
         </scene>
       </React3>
