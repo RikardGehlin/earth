@@ -1,13 +1,26 @@
 language: node_js
 sudo: false
+cache:
+  yarn: true
+  directories:
+    - node_modules
 node_js:
-  - "4.1"
-  - "4.0"
-  - "0.12"
-  - "0.11"
-  - "0.10"
+  - "node"
   - "iojs"
+  - "7"
+  - "6"
+  - "5"
+  - "4"
+  - "0.12"
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 install:
-  - npm install
+  - yarn
 script:
   - npm test
