@@ -1,109 +1,76 @@
-/*
-  const getWaterColor = water => {
-    return new Color(0x003366);
+uniform bool isWater;
+uniform float  water, growth, fertility;
+uniform int temperature, height;
+
+vec4 baseColor = vec4(0.55, 0.55, 0.55, 1) ; // 0x8d8d8d
+vec4 waterColor = vec4(0, 0.2, 0.4, 1) ; // 0x003366
+vec4 growthColor = vec4(0, 0.35, 0.02, 1) ; // 0x005a04
+vec4 fertilityColor = vec4(0.5, 0.33, 0.09, 1) ; // 0x7f5417
+
+vec4 coldestTemperatureColor = vec4(238, 238, 238, 1); // 0xeeeeee
+vec4 coldTemperatureColor = vec4(245, 250, 250, 1); // 0xf5fafa
+vec4 baseTemperatureColor = vec4(255, 255, 204, 1); // 0xffffcc
+vec4 warmTemperatureColor = vec4(255, 204, 51, 1); // 0xffcc33
+vec4 warmestTemperatureColor = vec4(255, 153, 0, 1); // 0xff9900
+ 
+vec4 getWaterColor(float water) {
+  return waterColor;
+}
+
+vec4 getGrowthColor(float growth) {
+  return growthColor;
+}
+
+vec4 getFertilityColor(float fertility) {
+  return fertilityColor;
+}
+
+
+vec4 getTemperatureColor(int temperature) {
+  if (temperature <= -15) {
+    return coldestTemperatureColor;
+  } else if (-15 < temperature && temperature <= 0) {
+    return coldTemperatureColor;
+  } else if (0 < temperature && temperature <= 15) {
+    return baseTemperatureColor;
+  } else if (15 < temperature && temperature <= 30) {
+    return warmTemperatureColor;;
+  } else if (30 < temperature) {
+    return warmestTemperatureColor;
+  } else {
+    return baseTemperatureColor;
+  }
+}
+
+vec4 shadeColor(vec4 color, int height) {
+  return color;
+}
+
+vec4 getColor(bool isWater, float water, float growth, float fertility, int temperature, int height) {
+  vec4 color = baseColor;
+
+  // Pure water, ie lakes, rivers, oceans...
+  if (isWater == true) {
+    color = getWaterColor(water);
   };
+  
+  // Water needs to be taken into account because of marches, swamps and wetlands...
+  if (water > 0.0) {
+    color = getWaterColor(water);
+  }
 
-  const getGrowthColor = growth => {
-    const color = new Color(0x005a04);
-    const colorHSL = color.getHSL();
-    console.log(
-      'aa',
-      colorHSL,
-      color.setHSL(colorHSL.h, colorHSL.s, colorHSL.l)
-    );
-    return color.setHSL(colorHSL.h, colorHSL.s, colorHSL.l * (1 - growth));
-  };
+  // The more growth, the greener the cell
+  if (growth > 0.0) {
+    color = getGrowthColor(growth);
+  }
 
-  const getFertilityColor = fertility => {
-    return new Color(0x7f5417).multiplyScalar(2 - fertility);
-  };
+  if (fertility < 0.2) {
+    color = getTemperatureColor(temperature);
+  }
 
-  const getTemperatureColor = temperature => {
-    /*  
-        temperature = white to orange,
-        coldest: 238, 238, 238
-        cold: 245, 250, 250
-        base color: 255, 255, 204
-        warm: 255, 204, 51
-        warmest: 255, 153, 0
-   // 
-
-    let tempColor;
-    if (temperature <= -15) {
-      tempColor = new Color(0xeeeeee);
-    } else if (-15 < temperature && temperature <= 0) {
-      tempColor = new Color(0xf5fafa);
-    } else if (0 < temperature && temperature <= 15) {
-      tempColor = new Color(0xffffcc);
-    } else if (15 < temperature && temperature <= 30) {
-      tempColor = new Color(0xffcc33);
-    } else if (30 < temperature) {
-      tempColor = new Color(0xff9900);
-    } else {
-      tempColor = new Color(0xeeeeee);
-    }
-
-    return tempColor;
-  };
-
-  const shadeColor2 = (color, percent) => {
-    var f = parseInt(color, 16),
-      t = percent < 0 ? 0 : 255,
-      p = percent < 0 ? percent * -1 : percent,
-      R = f >> 16,
-      G = (f >> 8) & 0x00ff,
-      B = f & 0x0000ff;
-
-    const color2 =
-      '#' +
-      (0x1000000 +
-        (Math.round((t - R) * p) + R) * 0x10000 +
-        (Math.round((t - G) * p) + G) * 0x100 +
-        (Math.round((t - B) * p) + B))
-        .toString(16)
-        .slice(1);
-
-    return new Color(color2);
-  };
-
-  const getColor = (isWater, growth, temperature, fertility, position) => {
-    let color = new Color(0x8d8d8d);
-
-    // Pure water, ie lakes, rivers, oceans...
-    if (isWater === true) {
-      return getWaterColor(water);
-    }
-
-    // The more growth, the greener the cell
-    if (growth) {
-      color.multiply(getGrowthColor(growth));
-    }
-
-    // Water needs to be taken into account because of marches, swamps and wetlands...
-    /* if (water) {
-      color.multiply(getWaterColor(water));
-    }
-
-    if (fertility < 0.2) {
-      color.lerp(getTemperatureColor(temperature), 1 - fertility * 5);
-    }
-//
-    return shadeColor2(color.getHexString(), position.y / 20);
-  };*/
-
-uniform float isWater, water, growth, temperature, fertility;
+  return shadeColor(color, height);
+}
 
 void main() {
-
-   float b = isWater + water + growth + temperature + fertility;
-
-    if (b <= 1.0){
-        b = 1.0;
-    };
-
-  gl_FragColor = vec4(
-                     b,  // R
-                     0,  // G
-                     0,  // B
-                      1.0); // A
+  gl_FragColor = getColor(isWater, water, growth, fertility, temperature, height);
 }
