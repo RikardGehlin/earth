@@ -59,6 +59,7 @@ export default function cellReudcer(cells, time) {
       depth: cell.depth,
       temperature: cell.temperature,
       // water: Math.max(0, Math.min(water, 1)),
+      isWater: cell.isWater,
       water: cell.water,
       fertility: Math.max(0, Math.min(fertility, 1)),
       growth: Math.max(0, Math.min(growth, 1))
