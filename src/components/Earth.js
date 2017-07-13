@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import React3 from "react-three-renderer";
-import { Color, Vector3 } from "three";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import React3 from 'react-three-renderer';
+import { Color, Vector3 } from 'three';
 
-const THREE = require("three");
-const OrbitControls = require("three-orbit-controls")(THREE);
+const THREE = require('three');
+const OrbitControls = require('three-orbit-controls')(THREE);
 
 // import base cell for earth data
-import Cell from "./Cell";
+import Cell from './Cell';
 
 /**
  * The main class to display the map. This contains only view code!
@@ -18,7 +18,7 @@ export default class Earth extends Component {
     height: PropTypes.number.isRequired,
     cameraPosition: PropTypes.instanceOf(Vector3).isRequired,
     lookAt: PropTypes.instanceOf(Vector3).isRequired,
-    cells: PropTypes.array.isRequired
+    cells: PropTypes.array.isRequired,
   };
 
   componentDidMount() {
@@ -42,7 +42,7 @@ export default class Earth extends Component {
       near: 0.1,
       far: 1000,
       position: cameraPosition,
-      lookAt: lookAt
+      lookAt: lookAt,
     };
 
     return (
@@ -50,8 +50,8 @@ export default class Earth extends Component {
         <resources />
         <scene>
           <perspectiveCamera ref="camera" name="camera" {...cameraprops} />
-          {cells.map(function(element) {
-            return <Cell {...element} />;
+          {cells.map(function(element, i) {
+            return <Cell {...element} key={'cell-' + i} />;
           })}
           <axisHelper size={5} />
         </scene>
