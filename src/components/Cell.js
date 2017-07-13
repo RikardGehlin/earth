@@ -26,24 +26,22 @@ const Cell = props => {
   // add a uniform for color shader
   var uniforms = {
     isWater: {
-      type: 'f', // a float
-      value: 1.0,
+      value: true,
     },
     water: {
-      type: 'f', // a float
       value: 1.0,
     },
     growth: {
-      type: 'f', // a float
+      value: 0.5,
+    },
+    fertility: {
       value: 1.0,
     },
     temperature: {
-      type: 'f', // a float
-      value: 1.0,
+      value: 1,
     },
-    fertility: {
-      type: 'f', // a float
-      value: 1.0,
+    height: {
+      value: 1,
     },
   };
 
