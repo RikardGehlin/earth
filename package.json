@@ -24,7 +24,6 @@
     "file-loader": "^0.8.5",
     "json-loader": "^0.5.4",
     "node-sass": "^3.7.0",
-    "orbit-controls-es6": "^1.0.8",
     "prop-types": "^15.5.10",
     "raw-loader": "^0.5.1",
     "react": "^15.5.4",
