@@ -7,11 +7,11 @@ vec4 waterColor = vec4(0, 0.2, 0.4, 1) ; // 0x003366
 vec4 growthColor = vec4(0, 0.35, 0.02, 1) ; // 0x005a04
 vec4 fertilityColor = vec4(0.5, 0.33, 0.09, 1) ; // 0x7f5417
 
-vec4 coldestTemperatureColor = vec4(238, 238, 238, 1); // 0xeeeeee
-vec4 coldTemperatureColor = vec4(245, 250, 250, 1); // 0xf5fafa
-vec4 baseTemperatureColor = vec4(255, 255, 204, 1); // 0xffffcc
-vec4 warmTemperatureColor = vec4(255, 204, 51, 1); // 0xffcc33
-vec4 warmestTemperatureColor = vec4(255, 153, 0, 1); // 0xff9900
+vec4 coldestTemperatureColor = vec4(0.93, 0.93, 0.93, 1); // 0xeeeeee
+vec4 coldTemperatureColor = vec4(0.96, 0.98, 0.98, 1); // 0xf5fafa
+vec4 baseTemperatureColor = vec4(1.0, 1.0, 0.8, 1); // 0xffffcc
+vec4 warmTemperatureColor = vec4(1.0, 0.8, 0.2, 1); // 0xffcc33
+vec4 warmestTemperatureColor = vec4(1.0, 0.6, 0, 1); // 0xff9900
  
 vec4 getWaterColor(float water) {
   return waterColor;
