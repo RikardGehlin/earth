@@ -1,5 +1,7 @@
 ## Usage
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/RikardGehlin/earth-simulator.svg)](https://greenkeeper.io/)
+
 ```
 npm install
 npm start
