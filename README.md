@@ -1,5 +1,6 @@
 ## Usage
 
+[![Build Status](https://travis-ci.org/RikardGehlin/earth-simulator.svg?branch=master)](https://travis-ci.org/RikardGehlin/earth-simulator)
 [![Greenkeeper badge](https://badges.greenkeeper.io/RikardGehlin/earth-simulator.svg)](https://greenkeeper.io/)
 
 ```
